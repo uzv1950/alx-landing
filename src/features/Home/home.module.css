@@ -1,0 +1,16 @@
+.fade-bottom-text {
+  animation: fade-bottom-text 0.4s linear backwards;
+}
+@keyframes fade-bottom-text {
+  0% {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}

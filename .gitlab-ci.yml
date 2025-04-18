@@ -1,0 +1,125 @@
+stages:
+  - sonarqube-check
+  - sonarqube-vulnerability-report
+  - buildProd
+  - updateManifest
+
+default:
+  image: docker:20-dind
+  services:
+    - name: docker:20-dind
+      alias: docker
+      command: ["dockerd-entrypoint.sh"]
+
+variables:
+  API_TOKEN: "dop_v1_2e0c4e467b66706cb90223253729e4a65392e067b9c2775226ad30077b55dde8"
+  REGISTRY: "registry.digitalocean.com"
+  REGISTRY_URL: "registry.digitalocean.com/bluepixel"
+  GIT_VERSION: "v2.30.1"
+  GIT_SERVER_HOST: "gitlab.blackpixel.mx"
+  MANIFEST_PATH: "infraestructura/bluepixel/appsmanifests"
+  MANIFEST_BRANCH: "master"
+  MANIFEST_DIR: "pixeland-admin"
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+
+sonarqube-check:
+  stage: sonarqube-check
+  image: 
+    name: sonarsource/sonar-scanner-cli:5.0
+    entrypoint: [""]
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script: 
+    - sonar-scanner
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
+    - main
+    - develop
+
+sonarqube-vulnerability-report:
+  stage: sonarqube-vulnerability-report
+  script:
+    - 'curl -u "${SONAR_TOKEN}:" "${SONAR_HOST_URL}/api/issues/gitlab_sast_export?projectKey=developers_altabix_panel-de-control-app_25be8434-4129-465b-9dc5-1214ad20a7db&branch=${CI_COMMIT_BRANCH}&pullRequest=${CI_MERGE_REQUEST_IID}" -o gl-sast-sonar-report.json'
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
+    - main
+    - develop
+  artifacts:
+    expire_in: 1 day
+    reports:
+      sast: gl-sast-sonar-report.json
+  dependencies:
+    - sonarqube-check
+
+buildProd:
+  stage: buildProd
+  retry: 2
+  before_script:
+    - export TAG=$(cat package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
+    #Login registry
+    - docker login -u ${API_TOKEN} -p ${API_TOKEN} ${REGISTRY}
+  script:
+    # Build and push the image
+    - docker build --build-arg ENV=production -t ${CI_PROJECT_NAME}:v${TAG} .
+    - docker image tag ${CI_PROJECT_NAME}:v${TAG} ${REGISTRY_URL}/${CI_PROJECT_NAME}:v${TAG}
+    - docker push ${REGISTRY_URL}/${CI_PROJECT_NAME}:v${TAG}
+  only:
+    - main
+
+#Git push production
+.git:push:
+  stage: updateManifest
+  image:
+    entrypoint: [""]
+    name: alpine/git:${GIT_VERSION}
+  after_script:
+    # Go to the new directory
+    - cd "${CI_COMMIT_SHA}"
+
+    # Add all generated files to Git
+    - git add .
+
+    - |-
+      # Check if we have modifications to commit
+      CHANGES=$(git status --porcelain | wc -l)
+
+      if [ "$CHANGES" -gt "0" ]; then
+        # Show the status of files that are about to be created, updated or deleted
+        git status
+
+        # Commit all changes
+        git commit -m "Deploy v$TAG"
+
+        # Update the repository and make sure to skip the pipeline create for this commit
+        git push origin "${MANIFEST_BRANCH}" -o ci.skip
+      fi
+  before_script:
+    - apk add yq --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community --allow-untrusted
+    # Clone the repository via HTTPS inside a new directory
+    - git clone "https://oauth2:${GIT_PUSH_TOKEN}@${GIT_SERVER_HOST}/${MANIFEST_PATH}.git" "${CI_COMMIT_SHA}"
+
+    # Set the displayed user with the commits that are about to be made
+    - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
+    - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
+    - export TAG=$(cat package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
+    - export IMAGE=${REGISTRY_URL}/${CI_PROJECT_NAME}:v${TAG}
+
+updateManifest:
+  stage: updateManifest
+  retry: 2
+  extends: .git:push
+  script:
+    - cd "${CI_COMMIT_SHA}/apps/${MANIFEST_DIR}"
+    - yq -i '.spec.template.spec.containers[0].image = strenv(IMAGE)' deploy.yml
+  only:
+    - main
