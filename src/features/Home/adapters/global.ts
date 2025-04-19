@@ -1,14 +1,24 @@
 import { components } from '@/types/api';
-import { TGlobalMetadata } from '../types';
+import { TGlobalData } from '../types';
+import getImage from '@/utils/getImage';
 
-export const globalMetadataAdapter = (response: components['schemas']['GlobalResponse']): TGlobalMetadata => {
+export const globalMetadataAdapter = (response: components['schemas']['GlobalResponse']): TGlobalData => {
   return {
-    siteName: response.data?.siteName || '',
-    siteDescription: response.data?.siteDescription || '',
-    siteFaviconUrl: `${process.env.NEXT_PUBLIC_FILE_URL}${response.data?.favicon?.url}`,
-    metadata: {
-      title: response.data?.defaultSeo?.metaTitle || '',
-      description: response.data?.defaultSeo?.metaDescription || ''
-    }
+    seo: {
+      siteTitle: response.data?.SEO?.metaTitle || '',
+      siteDescription: response.data?.SEO?.ogDescription || '',
+      siteFaviconUrl: getImage(response.data?.SEO?.favicon?.url || ''),
+      openGraph: {
+        title: response.data?.SEO?.ogTitle || '',
+        description: response.data?.SEO?.ogDescription || '',
+        image: getImage(response.data?.SEO?.shareImage?.url || '')
+      }
+    },
+    locales:
+      response.data?.Locales?.map(locale => ({
+        id: locale.id?.toString() || '',
+        name: locale.label || '',
+        locale: locale.value || ''
+      })) || []
   };
 };

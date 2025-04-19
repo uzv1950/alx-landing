@@ -2,22 +2,18 @@ import { ReactElement } from 'react';
 import type { GetServerSideProps } from 'next';
 import LayoutHome from '@/components/layouts/layoutMain/LayoutHome';
 import HomePage from '@/features/Home/page/HomePage';
-import { TGlobalMetadata } from '@/features/Home/types';
-import getSiteMetadataService from '@/features/Home/services/getSiteMetadata.service';
-import { globalMetadataAdapter } from '@/features/Home/adapters/global';
+import { TGlobalData } from '@/features/Home/types';
+import getGlobalDataService from '@/features/Home/services/getGlobalData.service';
 
 export const getServerSideProps: GetServerSideProps<{
-  metadata: TGlobalMetadata;
+  metadata: TGlobalData;
 }> = async ({ locale = 'es' }) => {
-  const response = await getSiteMetadataService(
-    `pagination[pageSize]=1&locale=${locale}&populate[0]=favicon&populate[1]=defaultSeo`
-  );
-
-  const data = globalMetadataAdapter(response);
+  const response = await getGlobalDataService(locale);
+  console.log('🚀 ~ response:', response);
 
   return {
     props: {
-      metadata: data
+      metadata: response
     }
   };
 };
@@ -27,7 +23,7 @@ const IndexPage = () => {
 };
 
 IndexPage.getLayout = function getLayout(page: ReactElement) {
-  const props = page.props as { metadata: TGlobalMetadata };
+  const props = page.props as { metadata: TGlobalData };
   return <LayoutHome metadata={props.metadata}>{page}</LayoutHome>;
 };
 

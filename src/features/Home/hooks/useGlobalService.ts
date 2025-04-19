@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import getGlobalService from '../services/getSiteMetadata.service';
+import getGlobalService from '../services/getGlobalData.service';
 import { globalMetadataAdapter } from '../adapters/global';
 
 const useGlobalService = () => {
