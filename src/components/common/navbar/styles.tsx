@@ -105,12 +105,8 @@ export const RootAppBarStyle = styled(AppBar, {
   padding: theme.spacing(1, 0),
   boxShadow: !isScroll ? 'none' : '0px 10px 15px -11px rgba(0,0,0,0.1)',
   top: 0,
-  // background: '#ccc',
   background: !isScroll ? '#E7E9F7' : 'rgba(255,255,255,0.6)',
-  backdropFilter: 'blur(15px)',
-  [theme.breakpoints.up('md')]: {
-    width: `calc(100% - ${NAVBAR.SIDEBAR_WIDTH - 16}px)`
-  }
+  backdropFilter: 'blur(15px)'
 }));
 
 export const RootAppBarHomeStyle = styled(AppBar, {

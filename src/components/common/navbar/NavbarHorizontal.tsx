@@ -1,15 +1,10 @@
-import { memo, useEffect, useState, FC } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Container, IconButton, Stack } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { RootAppBarStyle } from './styles';
 import SelectLanguage from './SelectLanguage';
 
-interface NavbarHorizontalProps {
-  hiddenIconMenu: boolean;
-  onToggleDrawer: () => void;
-}
-
-const NavbarHorizontal: FC<NavbarHorizontalProps> = ({ hiddenIconMenu, onToggleDrawer }) => {
+const NavbarHorizontal = () => {
   const [isScrollHeader, setIsScrollHeader] = useState<boolean>(false);
 
   useEffect(() => {
@@ -28,15 +23,10 @@ const NavbarHorizontal: FC<NavbarHorizontalProps> = ({ hiddenIconMenu, onToggleD
 
   return (
     <RootAppBarStyle isScroll={isScrollHeader}>
-      <Container
-        sx={{ display: 'flex', justifyContent: !hiddenIconMenu ? 'space-between' : 'flex-end', alignItems: 'center' }}
-        maxWidth={false}
-      >
-        {!hiddenIconMenu && (
-          <IconButton onClick={onToggleDrawer}>
-            <MenuIcon />
-          </IconButton>
-        )}
+      <Container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} maxWidth={false}>
+        <IconButton>
+          <MenuIcon />
+        </IconButton>
         <Stack direction="row" alignItems="center" gap={1}>
           <SelectLanguage />
         </Stack>

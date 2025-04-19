@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
-import { styled } from '@mui/material';
+import { styled, Toolbar } from '@mui/material';
 import { TGlobalData } from '@/features/Home/types';
 import Head from 'next/head';
+import { NavbarHorizontal } from '@/components/common/navbar';
 
 interface MainStyleProps {
   isOpenSidebar?: boolean;
@@ -42,7 +43,11 @@ const LayoutHome = ({ children, data }: { children: ReactNode; data: TGlobalData
         ))}
         <link rel="alternate" hrefLang="x-default" href={process.env.NEXT_PUBLIC_SITE_URL} />
       </Head>
-      <MainStyle>{children}</MainStyle>
+      <NavbarHorizontal />
+      <MainStyle>
+        <Toolbar sx={{ mt: 2 }} />
+        {children}
+      </MainStyle>
     </>
   );
 };
