@@ -9,7 +9,6 @@ export const getServerSideProps: GetServerSideProps<{
   metadata: TGlobalData;
 }> = async ({ locale = 'es' }) => {
   const response = await getGlobalDataService(locale);
-  console.log('🚀 ~ response:', response);
 
   return {
     props: {
@@ -24,7 +23,7 @@ const IndexPage = () => {
 
 IndexPage.getLayout = function getLayout(page: ReactElement) {
   const props = page.props as { metadata: TGlobalData };
-  return <LayoutHome metadata={props.metadata}>{page}</LayoutHome>;
+  return <LayoutHome data={props.metadata}>{page}</LayoutHome>;
 };
 
 export default IndexPage;
