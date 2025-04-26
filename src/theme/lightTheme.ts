@@ -1,6 +1,5 @@
 import { createTheme } from '@mui/material/styles';
 import BaseTheme from './baseTheme';
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
 const Theme = createTheme({
   ...BaseTheme,
@@ -8,32 +7,56 @@ const Theme = createTheme({
     ...BaseTheme.palette,
     mode: 'light',
     primary: {
-      main: '#4151BB',
+      main: '#1ECAD3',
       contrastText: '#fff',
-      50: '#E7E9F7',
-      100: '#B6BCE5',
-      200: '#929BD8',
-      300: '#606EC6',
-      400: '#4151BB',
-      500: '#1226AA',
-      600: '#10239B',
-      700: '#10239B',
-      800: '#0A155E',
-      900: '#081047'
+      50: '#E9FAFB',
+      100: '#DDF7F8',
+      200: '#B9EFF1',
+      300: '#1ECAD3',
+      400: '#1BB6BE',
+      500: '#18A2A9',
+      600: '#17989E',
+      700: '#12797F',
+      800: '#0D5B5F',
+      900: '#0B474A'
+    },
+    primaryOpacity: {
+      50: '#1ECAD31A',
+      100: '#1ECAD333',
+      200: '#1ECAD34D',
+      300: '#1ECAD366',
+      400: '#1ECAD380',
+      500: '#1ECAD399',
+      600: '#1ECAD3B2',
+      700: '#1ECAD3CC',
+      800: '#1ECAD3E5',
+      900: '#1ECAD3'
     },
     secondary: {
-      main: '#7DD2FF',
+      main: '#6E4CE2',
       contrastText: '#fff',
-      50: '#EFF9FF',
-      100: '#CCEEFF',
-      200: '#B4E5FF',
-      300: '#92D9FF',
-      400: '#7DD2FF',
-      500: '#5CC7FF',
-      600: '#54B5E8',
-      700: '#418DB5',
-      800: '#336D8C',
-      900: '#27546B'
+      50: '#F1EDFC',
+      100: '#E9E4FB',
+      200: '#D2C8F6',
+      300: '#6E4CE2',
+      400: '#6344CB',
+      500: '#583DB5',
+      600: '#5339AA',
+      700: '#422E88',
+      800: '#312266',
+      900: '#271B4F'
+    },
+    secondaryOpacity: {
+      50: '#6E4CE21A',
+      100: '#6E4CE233',
+      200: '#6E4CE24D',
+      300: '#6E4CE266',
+      400: '#6E4CE280',
+      500: '#6E4CE299',
+      600: '#6E4CE2B2',
+      700: '#6E4CE2CC',
+      800: '#6E4CE2E5',
+      900: '#6E4CE2'
     },
     success: {
       main: '#91D91C',
@@ -82,24 +105,32 @@ const Theme = createTheme({
       900: '#461702'
     },
     background: {
-      default: '#FBFBFB', // background body
+      default: '#141619', // background body
       paper: '#FFFFFF'
     },
     grey: {
-      50: '#FFFFFF',
-      100: '#FBFBFB',
-      200: '#F2F3F7',
-      300: '#E8EAF3',
-      400: '#D8DBE4',
-      500: '#C0C4D2',
-      600: '#969AAC',
-      700: '#727688',
-      800: '#4D5163',
-      900: '#3E414E',
-      A100: '#1D1E24'
+      50: '#FEFEFE',
+      100: '#FEFEFD',
+      200: '#FCFCFB',
+      300: '#F6F5F3',
+      400: '#DDDDDB',
+      500: '#C5C4C2',
+      600: '#B9B8B6',
+      700: '#949392',
+      800: '#6F6E6D',
+      900: '#3E414E'
     },
-    custom: {
-      white: '#ffffff'
+    blueBlack: {
+      50: '#E7E8E9',
+      100: '#DBDCDE',
+      200: '#B5B7BA',
+      300: '#101820',
+      400: '#0E161D',
+      500: '#0D131A',
+      600: '#0C1218',
+      700: '#0A0E13',
+      800: '#070B0E',
+      900: '#06080B'
     }
   },
   components: {
@@ -151,16 +182,22 @@ const Theme = createTheme({
         },
         sizeSmall: {
           height: '40px',
-          padding: '8px 12px'
+          padding: '8px 12px',
+          borderRadius: '8px',
+          fontSize: '0.75rem'
         },
         sizeMedium: {
           height: '40px',
-          padding: '8px 16px'
+          padding: '8px 16px',
+          borderRadius: '8px',
+          fontSize: '0.875rem'
         },
         sizeLarge: {
           height: '48px',
           padding: '12px 24px',
-          fontWeight: 600
+          fontWeight: 600,
+          borderRadius: '12px',
+          fontSize: '1rem'
         }
       },
       variants: [
