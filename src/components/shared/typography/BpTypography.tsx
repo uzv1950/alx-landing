@@ -21,7 +21,7 @@ const BpTypography = forwardRef<HTMLParagraphElement, BpTypographyProps>(
       children,
       color = '#555',
       sx = {},
-      fontVariant = 'primary',
+      fontVariant = undefined,
       fontWeight = 400,
       textAlign = 'inherit',
       component = 'p',
@@ -36,7 +36,7 @@ const BpTypography = forwardRef<HTMLParagraphElement, BpTypographyProps>(
       variant={variant}
       fontWeight={fontWeight}
       textAlign={textAlign}
-      fontFamily={FONT_FAMILY_VARIANT[fontVariant]}
+      fontFamily={fontVariant ? FONT_FAMILY_VARIANT[fontVariant] : 'inherit'}
       sx={sx}
       {...props}
     >
