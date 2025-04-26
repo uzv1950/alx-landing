@@ -1,8 +1,8 @@
 import { MenuItem, Select } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { FONT_FAMILY_VARIANT } from '@/theme/baseTheme';
+import { ChevronDownIcon } from '@heroicons/react/16/solid';
+
 type TLanguages = 'es' | 'en' | '';
 
 const SelectLanguage = () => {
@@ -31,36 +31,33 @@ const SelectLanguage = () => {
       value={language}
       onChange={handleChange}
       size="small"
-      color="primary"
-      variant="standard"
-      IconComponent={ArrowDropDownIcon}
+      variant="outlined"
+      IconComponent={ChevronDownIcon}
       disabled={!language}
       sx={{
-        minWidth: 70,
-        color: 'primary.500',
-        fontSize: '13px',
-        fontWeight: 600,
+        color: 'grey.50',
         borderRadius: '8px',
-        fontFamily: FONT_FAMILY_VARIANT.primary,
+        fontSize: '14px',
+        '& fieldset': {
+          border: theme => `1px solid ${theme.palette.grey[50]}`
+        },
+        '&:focus': {
+          border: theme => `1px solid ${theme.palette.primary[300]}`
+        },
+        '& .MuiSelect-icon': {
+          width: '20px',
+          height: '20px',
+          color: 'grey.50',
+          top: '8px'
+        },
         '&:hover': {
-          '&:before': {
-            borderBottom: 'none !important'
-          }
-        },
-        // :befonre
-        '&:before': {
-          borderBottom: 'none'
-        },
-        '&:after': {
-          borderBottom: 'none'
-        },
-        '& .MuiSvgIcon-root': {
-          color: 'primary.500'
+          backgroundColor: 'rgba(255, 255, 255, 0.2)',
+          border: theme => `1px solid ${theme.palette.grey[50]}`
         }
       }}
     >
-      <MenuItem value="es">ESP</MenuItem>
-      <MenuItem value="en">ENG</MenuItem>
+      <MenuItem value="es">ES</MenuItem>
+      <MenuItem value="en">EN</MenuItem>
     </Select>
   );
 };
