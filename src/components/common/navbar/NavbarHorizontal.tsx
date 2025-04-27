@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo } from 'react';
 import BpTypography from '@/components/shared/typography/BpTypography';
 import { AppBar, Box, Container, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -31,29 +31,24 @@ const AppBarStyled = styled(AppBar, {
   })
 }));
 
-const NavbarHorizontal = () => {
-  const [isScrollHeader, setIsScrollHeader] = useState<boolean>(false);
+type Props = {
+  isScroll: boolean;
+};
 
-  useEffect(() => {
-    const onScroll = () => {
-      setIsScrollHeader(window.scrollY > 60);
-    };
-
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
+const NavbarHorizontal = ({ isScroll }: Props) => {
   return (
-    <AppBarStyled isScroll={isScrollHeader}>
+    <AppBarStyled isScroll={isScroll}>
       <Container
         maxWidth="lg"
         sx={{
+          zIndex: 9,
           borderRadius: '12px',
           padding: '0.875rem 0',
-          ...(isScrollHeader && {
+          ...(isScroll && {
             background: 'linear-gradient(180deg, rgba(28, 28, 28, 0.5) 0%, rgba(48, 48, 48, 0.5) 100%)',
             backdropFilter: 'blur(12px)'
-          })
+          }),
+          transition: 'all 0.3s ease-in-out'
         }}
       >
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ height: '100%' }}>
