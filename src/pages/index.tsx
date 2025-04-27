@@ -6,6 +6,7 @@ import { TGlobalData, THomeData } from '@/features/Home/types';
 import getGlobalDataService from '@/features/Home/services/getGlobalData.service';
 import getHomePageDataService from '@/features/Home/services/getHomePageData.service';
 import { HomeContextProvider } from '@/features/Common/context/home/HomeContext';
+import VideoHero from '@/features/Home/components/hero/VideoHero';
 
 type TProps = {
   global: TGlobalData;
@@ -25,17 +26,23 @@ export const getServerSideProps: GetServerSideProps<TProps> = async ({ locale = 
 };
 
 const IndexPage = ({ home }: TProps) => {
-  console.log('🚀 ~ IndexPage ~ home:', home);
   return (
     <HomeContextProvider initialState={home}>
-      <HomePage />
+      <VideoHero />
+      <main>
+        <HomePage />
+      </main>
     </HomeContextProvider>
   );
 };
 
 IndexPage.getLayout = function getLayout(page: ReactElement) {
   const props = page.props as TProps;
-  return <LayoutHome data={props.global}>{page}</LayoutHome>;
+  return (
+    <LayoutHome main={false} data={props.global}>
+      {page}
+    </LayoutHome>
+  );
 };
 
 export default IndexPage;

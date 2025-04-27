@@ -1,5 +1,3 @@
-import { NavbarHorizontal, SelectLanguage } from '@/components/common/navbar';
-import { Box } from '@mui/material';
 import SectionHero from '../components/hero/SectionHero';
 import SectionAboutUs from '../components/about-us/SectionAboutUs';
 import SectionTeam from '../components/team/SectionTeam';
@@ -12,7 +10,7 @@ import SectionContact from '../components/contact/SectionContact';
 
 const HomePage = () => {
   return (
-    <Box>
+    <>
       <SectionHero />
       <SectionAboutUs />
       <SectionValues />
@@ -22,7 +20,7 @@ const HomePage = () => {
       <SectionSponsors />
       <SectionTeam />
       <SectionContact />
-    </Box>
+    </>
   );
 };
 

@@ -1,21 +1,20 @@
-import { ReactNode } from 'react';
-import { styled, Toolbar } from '@mui/material';
+import { ReactNode, useEffect, useState } from 'react';
 import { TGlobalData } from '@/features/Home/types';
 import Head from 'next/head';
 import { NavbarHorizontal } from '@/components/common/navbar';
 
-interface MainStyleProps {
-  isOpenSidebar?: boolean;
-  isDrawerTemporary?: boolean;
-}
+const LayoutHome = ({ children, data, main = true }: { children: ReactNode; data: TGlobalData; main?: boolean }) => {
+  const [isScroll, setIsScroll] = useState(false);
 
-const MainStyle = styled('main', {
-  shouldForwardProp: (prop: string) => !['isOpenSidebar', 'isDrawerTemporary'].includes(prop)
-})<MainStyleProps>(() => ({
-  height: '100%'
-}));
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScroll(window.scrollY > 60);
+    };
 
-const LayoutHome = ({ children, data }: { children: ReactNode; data: TGlobalData }) => {
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
       <Head>
@@ -43,11 +42,8 @@ const LayoutHome = ({ children, data }: { children: ReactNode; data: TGlobalData
         ))}
         <link rel="alternate" hrefLang="x-default" href={process.env.NEXT_PUBLIC_SITE_URL} />
       </Head>
-      <NavbarHorizontal />
-      <MainStyle>
-        <Toolbar sx={{ mt: 2 }} />
-        {children}
-      </MainStyle>
+      <NavbarHorizontal isScroll={isScroll} />
+      {main ? <main>{children}</main> : children}
     </>
   );
 };
