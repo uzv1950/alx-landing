@@ -1,15 +1,27 @@
+import { useEffect, useState } from 'react';
 import { Box, Container, Stack } from '@mui/material';
 import BpTypography from '@/components/shared/typography/BpTypography';
 import ButtonPrimary from '@/components/common/button/ButtonPrimary';
 import ButtonSecondary from '@/components/common/button/ButtonSecondary';
+import Lottie from 'react-lottie-player';
 
 const SectionHero = () => {
+  const [animationLine, setAnimationLine] = useState(null);
+
+  useEffect(() => {
+    fetch('/lottie/glow-curve-line.json')
+      .then(res => res.json())
+      .then(data => {
+        setAnimationLine(data);
+      });
+  }, []);
+
   return (
     <Container
       maxWidth={false}
       sx={{
-        width: '100%',
-        height: 'calc(100vh - 80px)'
+        height: '100vh',
+        width: '100%'
       }}
     >
       <Box
@@ -17,7 +29,6 @@ const SectionHero = () => {
           height: '100%',
           maxWidth: '1280px',
           width: '100%',
-          // border: '1px solid #555',
           margin: '0 auto',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 14.5rem 1fr 1fr',
@@ -65,10 +76,7 @@ const SectionHero = () => {
             </ButtonSecondary>
           </Stack>
         </Box>
-
         <Box
-          component="img"
-          src="/images/glow-curve-line.svg"
           aria-hidden="true"
           sx={{
             ml: 4,
@@ -77,7 +85,20 @@ const SectionHero = () => {
             gridColumn: 'c',
             gridRow: 'c / r'
           }}
-        />
+        >
+          {animationLine && (
+            <Lottie
+              animationData={JSON.parse(JSON.stringify(animationLine))}
+              loop
+              speed={0.3}
+              play
+              style={{
+                width: '80px',
+                height: '100%'
+              }}
+            />
+          )}
+        </Box>
       </Box>
     </Container>
   );

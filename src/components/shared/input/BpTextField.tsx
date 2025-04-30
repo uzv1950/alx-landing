@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import { styled, TextField, TextFieldProps } from '@mui/material';
+import { TextField, TextFieldProps } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-const StyledTextField = styled(TextField)(({ size, InputProps }) => ({
-  ...(!InputProps?.multiline && {
+const StyledTextField = styled(TextField)(({ size, InputProps, multiline }) => ({
+  ...(!multiline && {
     ...(size === 'medium' && {
       '& .MuiInputBase-root': {
         height: '46px'

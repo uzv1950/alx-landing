@@ -15,7 +15,7 @@ interface ButtonStyledProps extends BpButtonProps {
 }
 
 const ButtonStyled = styled(LoadingButton, {
-  shouldForwardProp: (prop: string) => !['isUppercase', 'fontVariant', 'type', 'styleVariant'].includes(prop)
+  shouldForwardProp: (prop: string) => !['isUppercase', 'fontVariant', 'styleVariant'].includes(prop)
 })<ButtonStyledProps>(({ isUppercase, fontVariant }) => {
   return {
     borderRadius: '12px',

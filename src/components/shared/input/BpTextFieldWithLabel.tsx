@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { FormControl, FormLabel, FormLabelProps, TextFieldProps } from '@mui/material';
 import BpTextField from './BpTextField';
+import { FONT_FAMILY_VARIANT } from '@/theme/baseTheme';
 
 export type BpTextFieldWithLabelProps = TextFieldProps & {
   slotProps?: {
@@ -19,9 +20,11 @@ const BpTextFieldWithLabel: FC<BpTextFieldWithLabelProps> = ({
     <FormLabel
       {...slotProps?.label}
       sx={{
-        color: theme => theme.palette.grey[700],
+        color: theme => theme.palette.grey[300],
         fontSize: '14px',
         textAlign: 'left',
+        fontWeight: 400,
+        fontFamily: FONT_FAMILY_VARIANT.secondary,
         ...(slotProps?.label?.sx || {})
       }}
       htmlFor={id}

@@ -105,6 +105,7 @@ const Theme = createTheme({
       900: '#461702'
     },
     background: {
+      //  default: '#00100F'
       default: '#141619', // background body
       paper: '#FFFFFF'
     },
@@ -135,51 +136,51 @@ const Theme = createTheme({
   },
   components: {
     ...BaseTheme.components,
-    MuiSelect: {
-      styleOverrides: {
-        root: {
-          '& .MuiSelect-select': {
-            padding: '0px !important'
-          },
-          '&.MuiInputBase-sizeSmall': {
-            height: '40px',
-            padding: '8px 12px'
-          },
-          '&.MuiInputBase-sizeMedium': {
-            height: '48px',
-            padding: '8px 16px'
-          },
-          '&.MuiOutlinedInput-root.MuiInputBase-colorPrimary .MuiSelect-icon': {
-            color: '#7A92C5'
-          },
-          '&.MuiOutlinedInput-root.MuiInputBase-colorPrimary fieldset': {
-            border: '2px solid #4151BB !important'
-          }
-        }
-      }
-    },
+    // MuiSelect: {
+    //   styleOverrides: {
+    //     root: {
+    //       '& .MuiSelect-select': {
+    //         padding: '0px !important'
+    //       },
+    //       '&.MuiInputBase-sizeSmall': {
+    //         height: '40px',
+    //         padding: '8px 12px'
+    //       },
+    //       '&.MuiInputBase-sizeMedium': {
+    //         height: '48px',
+    //         padding: '8px 16px'
+    //       },
+    //       '&.MuiOutlinedInput-root.MuiInputBase-colorPrimary .MuiSelect-icon': {
+    //         color: '#7A92C5'
+    //       },
+    //       '&.MuiOutlinedInput-root.MuiInputBase-colorPrimary fieldset': {
+    //         border: '2px solid #4151BB !important'
+    //       }
+    //     }
+    //   }
+    // },
     MuiButton: {
       defaultProps: {
         disableElevation: true
       },
       styleOverrides: {
-        root: {
-          '&:hover': {
-            boxShadow: '0px 4px 12px 0px #47656F33'
-          },
-          '&.Mui-disabled': {
-            backgroundColor: '#E8EAF3',
-            color: '#969AAC',
-            fontWeight: 600
-          },
-          '&.MuiButton-colorWarning:not(.Mui-disabled)': {
-            fontWeight: 600,
-            color: '#1D1E24'
-          },
-          '&.MuiButton-colorWarning:hover': {
-            backgroundColor: '#F59F13'
-          }
-        },
+        // root: {
+        //   '&:hover': {
+        //     boxShadow: '0px 4px 12px 0px #47656F33'
+        //   },
+        //   '&.Mui-disabled': {
+        //     backgroundColor: '#E8EAF3',
+        //     color: '#969AAC',
+        //     fontWeight: 600
+        //   },
+        //   '&.MuiButton-colorWarning:not(.Mui-disabled)': {
+        //     fontWeight: 600,
+        //     color: '#1D1E24'
+        //   },
+        //   '&.MuiButton-colorWarning:hover': {
+        //     backgroundColor: '#F59F13'
+        //   }
+        // },
         sizeSmall: {
           height: '40px',
           padding: '8px 12px',
@@ -226,47 +227,77 @@ const Theme = createTheme({
     MuiTextField: {
       styleOverrides: {
         root: {
+          '& .MuiSelect-select': {
+            color: '#1ECAD3B2'
+          },
           '& input::placeholder': {
-            color: '#727688',
+            color: '#1ECAD3B2',
             opacity: '1' /* Asegura que el color no sea transparente */
           },
+          '& input': {
+            color: '#1ECAD3B2'
+          },
+          '& textarea::placeholder': {
+            color: '#1ECAD3B2 !important',
+            opacity: '1'
+          },
+          '& textarea': {
+            color: '#1ECAD3B2 !important'
+          },
           '& .MuiOutlinedInput-root': {
-            background: '#FBFBFB',
+            background: '#1ECAD31A',
             '& fieldset': {
-              border: '1px solid #C0C4D2'
+              borderColor: '#1ECAD380'
             }
           },
-          '& .MuiSvgIcon-root': {
-            color: '#727688'
+          '&:hover': {
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: '#1ECAD380'
+              }
+            },
+            '& textarea': {
+              color: '#1ECAD3B2'
+            }
           },
-          '& .MuiOutlinedInput-root.Mui-disabled': {
-            background: '#F2F3F7'
-          }
-        }
-      }
-    },
-    MuiTabs: {
-      styleOverrides: {
-        root: {
-          '& .MuiTab-root': {
-            fontWeight: 600
-          },
-          '& .MuiTab-root.Mui-selected': {
-            background: '#E7E9F7',
-            borderRadius: '12px 12px 0px 0px'
-          },
-          '& button.MuiTab-textColorPrimary': {
-            color: '#10239B',
-            '&.Mui-disabled': {
-              fontWeight: 400
+          '&:active': {
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: '#1ECAD380'
+              }
             }
           }
-        },
-        indicator: {
-          display: 'none'
+          //   '& .MuiSvgIcon-root': {
+          //     color: '#727688'
+          //   },
+          //   '& .MuiOutlinedInput-root.Mui-disabled': {
+          //     background: '#F2F3F7'
+          //   }
         }
       }
     }
+    // MuiTabs: {
+    //   styleOverrides: {
+    //     root: {
+    //       '& .MuiTab-root': {
+    //         fontWeight: 600
+    //       },
+    //       '& .MuiTab-root.Mui-selected': {
+    //         background: '#E7E9F7',
+    //         borderRadius: '12px 12px 0px 0px'
+    //       },
+    //       '& button.MuiTab-textColorPrimary': {
+    //         color: '#10239B',
+    //         '&.Mui-disabled': {
+    //           fontWeight: 400
+    //         }
+    //       }
+    //     },
+    //     indicator: {
+    //       display: 'none'
+    //     }
+    //   }
+    // }
   }
 });
 

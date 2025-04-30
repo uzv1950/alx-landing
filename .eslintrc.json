@@ -45,7 +45,7 @@
     "react/require-default-props": "off",
     "react/display-name": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "testing-library/await-async-query": "error",
+    "testing-library/await-async-query": "off",
     "testing-library/no-await-sync-query": "error",
     "testing-library/no-debugging-utils": "warn",
     "testing-library/no-dom-import": "off",

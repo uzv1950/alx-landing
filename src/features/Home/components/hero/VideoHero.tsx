@@ -53,7 +53,7 @@ const VideoHero = () => {
           zIndex: 0,
           pointerEvents: 'none',
           background:
-            'radial-gradient(72.6% 65.19% at 50% 24.54%, rgba(20, 22, 25, 0) 0%, rgba(20, 22, 25, 0.3) 50%, #141619 100%)',
+            'radial-gradient(72.6% 65.19% at 50% 24.54%, rgba(20, 22, 25, 0) 0%, rgba(20, 22, 25, 0.4) 50%, #141619 120%)',
           position: 'absolute',
           top: 0,
           left: 0,
@@ -64,9 +64,6 @@ const VideoHero = () => {
       <video aria-hidden="true" className="video-base" autoPlay muted loop ref={videoRef}>
         <source src="/videos/video-hero.webm" type="video/webm" />
       </video>
-      {/* <video aria-hidden="true" className="video-waves" autoPlay muted loop>
-        <source src="/videos/video-hero-waves.webm" type="video/webm" />
-      </video> */}
       <Box
         className="overlay"
         sx={{

@@ -5,7 +5,7 @@ export type FontVariant = 'primary' | 'secondary' | 'tertiary';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['400', '600']
+  weight: ['400', '500', '600']
 });
 
 const varelaRound = Varela_Round({
@@ -252,16 +252,16 @@ const BaseTheme: ThemeOptions = {
   },
   components: {
     MuiCssBaseline: {
-      // styleOverrides: {
-      //   '*::-webkit-scrollbar': {
-      //     width: '0.12em'
-      //   },
-      //   '*::-webkit-scrollbar-thumb': {
-      //     borderRadius: '20px',
-      //     backgroundColor: '#6c6c6c',
-      //     opacity: 0.25
-      //   }
-      // }
+      styleOverrides: {
+        '*::-webkit-scrollbar': {
+          width: '0.3em'
+        },
+        '*::-webkit-scrollbar-thumb': {
+          borderRadius: '20px',
+          backgroundColor: '#1ECAD3',
+          opacity: 0.25
+        }
+      }
     },
     MuiStack: {
       defaultProps: {

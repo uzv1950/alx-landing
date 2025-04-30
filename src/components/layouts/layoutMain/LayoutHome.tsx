@@ -2,6 +2,9 @@ import { ReactNode, useEffect, useState } from 'react';
 import { TGlobalData } from '@/features/Home/types';
 import Head from 'next/head';
 import { NavbarHorizontal } from '@/components/common/navbar';
+import Footer from '@/features/Common/components/Footer/Footer';
+import CopyrightBar from '@/features/Common/components/Footer/CopyrightBar';
+import { Box } from '@mui/material';
 
 const LayoutHome = ({ children, data, main = true }: { children: ReactNode; data: TGlobalData; main?: boolean }) => {
   const [isScroll, setIsScroll] = useState(false);
@@ -44,6 +47,8 @@ const LayoutHome = ({ children, data, main = true }: { children: ReactNode; data
       </Head>
       <NavbarHorizontal isScroll={isScroll} />
       {main ? <main>{children}</main> : children}
+      <Footer />
+      <CopyrightBar />
     </>
   );
 };
