@@ -2,7 +2,7 @@
 <img src="https://main.d1r19m5v3msxbi.amplifyapp.com/logo/logo-app.svg" width="200" alt="StackUp Logo" />
 </p>
 
-# StackUp Admin
+# Lnading altabix
 
 ## Descripción del proyecto
 
