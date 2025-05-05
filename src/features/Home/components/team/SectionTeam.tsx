@@ -1,8 +1,20 @@
+import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import BpTypography from '@/components/shared/typography/BpTypography';
-import CardPerson from './CardPerson';
+import SliderTeamPeople from './SliderTeamPeople';
+import Lottie from 'react-lottie-player';
 
 const SectionTeam = () => {
+  const [animationLine, setAnimationLine] = useState<any>(null);
+
+  useEffect(() => {
+    fetch('/lottie/glow-curve-line.json')
+      .then(res => res.json())
+      .then(data => {
+        setAnimationLine(data);
+      });
+  }, []);
+
   return (
     <Box
       component="section"
@@ -19,9 +31,41 @@ const SectionTeam = () => {
           maxWidth: '1144px',
           width: '100%',
           mx: 'auto',
+          px: '1.5rem',
           position: 'relative'
         }}
       >
+        {animationLine && (
+          <Lottie
+            animationData={JSON.parse(JSON.stringify(animationLine))}
+            loop
+            speed={0.3}
+            play
+            style={{
+              position: 'absolute',
+              top: '25%',
+              left: '-7%',
+              width: '80px',
+              height: '560px',
+              transform: 'scaleX(-1)'
+            }}
+          />
+        )}
+        {animationLine && (
+          <Lottie
+            animationData={JSON.parse(JSON.stringify(animationLine))}
+            loop
+            speed={0.3}
+            play
+            style={{
+              position: 'absolute',
+              top: '25%',
+              right: '-7%',
+              width: '80px',
+              height: '560px'
+            }}
+          />
+        )}
         {/* Degradados */}
         <Box
           sx={{
@@ -34,7 +78,7 @@ const SectionTeam = () => {
             left: '-32%',
             zIndex: -1,
             transform: 'rotate(135deg)',
-            filter: 'blur(100px)'
+            filter: 'blur(80px)'
           }}
         />
         <Box
@@ -44,7 +88,7 @@ const SectionTeam = () => {
             right: '-20%',
             zIndex: -1,
             transform: 'rotate(155deg)',
-            filter: 'blur(140px)',
+            filter: 'blur(100px)',
             background: '#6E4CE2',
             width: '255px',
             height: '100px'
@@ -68,18 +112,17 @@ const SectionTeam = () => {
             height={411}
             sx={{
               width: '100%',
-              height: '411px',
-              borderRadius: '16px 16px 0 0',
+              height: {
+                xs: '180px',
+                md: '411px'
+              },
+              borderRadius: '16px',
               objectFit: 'cover'
             }}
           />
 
-          <Box mt={4} display="flex" gap={3} height="280px">
-            <CardPerson />
-            <CardPerson />
-            <CardPerson />
-            <CardPerson />
-            <CardPerson />
+          <Box mt="2.5rem">
+            <SliderTeamPeople />
           </Box>
         </Box>
       </Box>

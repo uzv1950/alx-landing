@@ -1,7 +1,13 @@
 import BpTypography from '@/components/shared/typography/BpTypography';
 import { Box } from '@mui/material';
 
-const CardCertification = () => {
+type TProps = {
+  title: string;
+  description: string;
+  image: string;
+};
+
+const CardCertification = ({ title, description, image }: TProps) => {
   return (
     <Box
       sx={{

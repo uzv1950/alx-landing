@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Tabs, Tab, Grid, Stack } from '@mui/material';
 import BpTypography from '@/components/shared/typography/BpTypography';
 import { motion } from 'motion/react';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/16/solid';
 import ButtonTertiary from '@/components/common/button/ButtonTertiary';
+import Lottie from 'react-lottie-player';
 
 const TIME_LINE_DATA = [
   {
@@ -29,12 +30,117 @@ const TIME_LINE_DATA = [
     year: '2025',
     title: 'Inicio de la empresa',
     description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 5,
+    year: '2030',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 6,
+    year: '2035',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 7,
+    year: '2040',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 8,
+    year: '2045',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 9,
+    year: '2050',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 10,
+    year: '2055',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 11,
+    year: '2060',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 12,
+    year: '2065',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 13,
+    year: '2070',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 14,
+    year: '2075',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 15,
+    year: '2080',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 16,
+    year: '2085',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 17,
+    year: '2090',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 18,
+    year: '2095',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 19,
+    year: '2100',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
+  },
+  {
+    order: 20,
+    year: '2105',
+    title: 'Inicio de la empresa',
+    description: 'Nuestra empresa fue fundada en 2010'
   }
 ];
 
 const SectionHistory = () => {
   const [hovered, setHovered] = useState<'left' | 'right' | null>('right');
   const [value, setValue] = useState('2010');
+  const [animationLine, setAnimationLine] = useState(null);
+
+  useEffect(() => {
+    fetch('/lottie/glow-curve-line.json')
+      .then(res => res.json())
+      .then(data => {
+        setAnimationLine(data);
+      });
+  }, []);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -60,7 +166,9 @@ const SectionHistory = () => {
         position: 'relative',
         overflow: 'hidden',
         pt: '9rem',
-        pb: '9rem'
+        pb: '16rem',
+        display: 'flex',
+        flexDirection: 'column'
       }}
     >
       <Box
@@ -68,7 +176,8 @@ const SectionHistory = () => {
           maxWidth: '1144px',
           width: '100%',
           mx: 'auto',
-          position: 'relative'
+          position: 'relative',
+          px: '1.5rem'
         }}
       >
         {/* degradados */}
@@ -116,7 +225,7 @@ const SectionHistory = () => {
         />
         {/* degradados */}
 
-        <Box mb="4rem">
+        <Box className="title" mb="4rem">
           <BpTypography mb={2} component="h2" color="blueBlack.50" variant="h1">
             Nuestra historia
           </BpTypography>
@@ -126,7 +235,7 @@ const SectionHistory = () => {
           </BpTypography>
         </Box>
 
-        <Box>
+        <Box className="timeline">
           <Tabs
             value={value}
             onChange={handleChange}
@@ -175,6 +284,7 @@ const SectionHistory = () => {
               }
             }}
             slotProps={{}}
+            scrollButtons
           >
             {TIME_LINE_DATA.map(item => (
               <Tab key={item.year} label={item.year} value={item.year} />
@@ -182,13 +292,18 @@ const SectionHistory = () => {
           </Tabs>
         </Box>
 
-        <Grid mt="4rem" container>
+        <Grid container>
           <Grid
             item
             xs={12}
             md={6}
             sx={{
-              display: 'flex'
+              pt: '4rem',
+              display: {
+                xs: 'none',
+                md: 'flex'
+              },
+              position: 'relative'
             }}
           >
             <Stack sx={{ ml: '20px' }} direction="row" justifyContent="flex-start" gap={0} alignItems="center">
@@ -233,8 +348,30 @@ const SectionHistory = () => {
                 }}
               />
             </Stack>
+            {animationLine && (
+              <Lottie
+                animationData={JSON.parse(JSON.stringify(animationLine))}
+                loop
+                speed={0.3}
+                play
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  right: -50,
+                  width: '100px',
+                  height: '680px'
+                }}
+              />
+            )}
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            sx={{
+              pt: '4rem'
+            }}
+          >
             <BpTypography mb="2.4rem" component="h3" color="blueBlack.50" variant="h2">
               {value}
             </BpTypography>
@@ -259,6 +396,63 @@ const SectionHistory = () => {
               >
                 <ArrowRightIcon width="24px" height="24px" />
               </ButtonTertiary>
+            </Stack>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: {
+                xs: 'flex',
+                md: 'none'
+              },
+              mt: '4.5rem',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Stack direction="row" justifyContent="flex-start" gap={0} alignItems="center">
+              <Box
+                component={motion.img}
+                src="/images/history-1.jpg"
+                width="207px"
+                height="310px"
+                alt="Left"
+                onHoverStart={() => setHovered('left')}
+                onHoverEnd={() => setHovered('right')}
+                animate={{
+                  scale: hovered === 'left' ? 1.2 : hovered === 'right' ? 0.8 : 1,
+                  filter: hovered === 'right' ? 'blur(4px)' : 'blur(0px)'
+                }}
+                sx={{
+                  width: hovered === 'left' ? '207px' : '170px',
+                  height: hovered === 'left' ? '310px' : '250px',
+                  borderRadius: '40px',
+                  zIndex: hovered === 'left' ? 1 : 0
+                }}
+              />
+              <Box
+                component={motion.img}
+                src="/images/history-2.jpg"
+                width="207px"
+                height="310px"
+                alt="Right"
+                onHoverStart={() => setHovered('right')}
+                onHoverEnd={() => setHovered('right')}
+                animate={{
+                  scale: hovered === 'right' ? 1.2 : hovered === 'left' ? 0.8 : 1,
+                  filter: hovered === 'left' ? 'blur(4px)' : 'blur(0px)'
+                }}
+                transition={{ type: 'spring', stiffness: 100 }}
+                sx={{
+                  width: hovered === 'right' ? '207px' : '170px',
+                  height: hovered === 'right' ? '310px' : '250px',
+                  borderRadius: '40px',
+                  marginLeft: '-20px !important',
+                  zIndex: hovered === 'right' ? 1 : 0
+                }}
+              />
             </Stack>
           </Grid>
         </Grid>

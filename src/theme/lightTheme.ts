@@ -184,20 +184,20 @@ const Theme = createTheme({
         sizeSmall: {
           height: '40px',
           padding: '8px 12px',
-          borderRadius: '8px',
+          borderRadius: '8px !important',
           fontSize: '0.75rem'
         },
         sizeMedium: {
           height: '40px',
           padding: '8px 16px',
-          borderRadius: '8px',
+          borderRadius: '8px !important',
           fontSize: '0.875rem'
         },
         sizeLarge: {
           height: '48px',
           padding: '12px 24px',
           fontWeight: 600,
-          borderRadius: '12px',
+          borderRadius: '12px !important',
           fontSize: '1rem'
         }
       },

@@ -1,17 +1,22 @@
 /* eslint-disable max-len */
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import BpTypography from '@/components/shared/typography/BpTypography';
 import { useHomeContextProvider } from '@/features/Common/context/home/HomeContext';
 import CardAbout from './card/CardAbout';
 
 const SectionAboutUs = () => {
+  const theme = useTheme();
   const { aboutUs } = useHomeContextProvider();
 
   return (
     <Box
       component="section"
       sx={{
-        width: '100%'
+        width: '100%',
+        px: '1.5rem',
+        [theme.breakpoints.down('md')]: {
+          pt: '14rem'
+        }
       }}
     >
       <Box
@@ -21,7 +26,7 @@ const SectionAboutUs = () => {
           mx: 'auto'
         }}
       >
-        <BpTypography component="h2" color="#F2F4F9" variant="h2">
+        <BpTypography component="h2" color="#F2F4F9" variant="h1">
           {aboutUs.title}
         </BpTypography>
 
@@ -37,7 +42,15 @@ const SectionAboutUs = () => {
             `,
             columnGap: '1.5rem',
             rowGap: '2.5rem',
-            position: 'relative'
+            position: 'relative',
+            [theme.breakpoints.down('md')]: {
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.5rem',
+              '& .article-2': {
+                mt: '15rem'
+              }
+            }
           }}
         >
           <Box
@@ -54,7 +67,12 @@ const SectionAboutUs = () => {
               width: '100%',
               height: '541px',
               objectFit: 'contain',
-              zIndex: -1
+              zIndex: -1,
+              [theme.breakpoints.down('md')]: {
+                left: '0',
+                top: '18%',
+                transform: 'none'
+              }
             }}
           />
 
@@ -69,6 +87,7 @@ const SectionAboutUs = () => {
           <CardAbout
             title={aboutUs.data.mission.title}
             description={aboutUs.data.mission.description}
+            className="article-2"
             sx={{
               gridArea: 'card5'
             }}

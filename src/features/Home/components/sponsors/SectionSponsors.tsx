@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import BpTypography from '@/components/shared/typography/BpTypography';
-import ItemSponsor from './ItemSponsor';
 import ButtonPrimary from '@/components/common/button/ButtonPrimary';
 import ModalContanctSponsor from './ModalContanctSponsor';
+import SliderSponsors from './SliderSponsors';
 
 const SectionSponsors = () => {
   const [open, setOpen] = useState(false);
@@ -16,14 +16,18 @@ const SectionSponsors = () => {
         sx={{
           mt: 0,
           width: '100%',
-          pb: '4rem'
+          pb: {
+            xs: '6rem',
+            md: '4rem'
+          }
         }}
       >
         <Box
           sx={{
             maxWidth: '1144px',
             width: '100%',
-            mx: 'auto'
+            mx: 'auto',
+            px: '1.5rem'
           }}
         >
           <Box>
@@ -34,18 +38,21 @@ const SectionSponsors = () => {
               Como parte de nuestra estrategia de crecimiento, Altabix invierte en startups tecnológicas especializadas
               en la industria turística, impulsando el desarrollo de nuevas soluciones disruptivas.
             </BpTypography>
-            <Box display="flex" mb="3.5rem" gap={3}>
-              <ItemSponsor />
-              <ItemSponsor />
-              <ItemSponsor />
-              <ItemSponsor />
-              <ItemSponsor />
-            </Box>
-            <Box width="100%" display="flex" justifyContent="center">
-              <ButtonPrimary size="large" fullWidth={false} onClick={() => setOpen(true)}>
-                Hagamos equipo
-              </ButtonPrimary>
-            </Box>
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: '1980px',
+            mx: 'auto'
+            // bgcolor: 'red'
+          }}
+        >
+          <SliderSponsors />
+          <Box mt={3} width="100%" display="flex" justifyContent="center">
+            <ButtonPrimary size="large" fullWidth={false} onClick={() => setOpen(true)}>
+              Hagamos equipo
+            </ButtonPrimary>
           </Box>
         </Box>
       </Box>

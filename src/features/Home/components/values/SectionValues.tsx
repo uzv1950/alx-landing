@@ -1,8 +1,10 @@
 /* eslint-disable max-len */
 import { useRef, useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import BpTypography from '@/components/shared/typography/BpTypography';
 import { motion } from 'motion/react';
+import Lottie from 'react-lottie-player';
+import useResponsive from '@/hooks/useResponsive';
 
 const values = [
   {
@@ -42,9 +44,21 @@ const values = [
   }
 ];
 const SectionValues = () => {
-  // const refContainer = useRef<HTMLDivElement>(null);
+  const theme = useTheme();
+  const isSm = useResponsive('down', 'md');
   const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [scrollTop, setScrollTop] = useState(0);
+  const [animationLine, setAnimationLine] = useState(null);
+  const [sectionHeight, setSectionHeight] = useState(0);
+
+  useEffect(() => {
+    fetch('/lottie/glow-vertical-line.json')
+      .then(res => res.json())
+      .then(data => {
+        setAnimationLine(data);
+      });
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -52,33 +66,26 @@ const SectionValues = () => {
 
     const handleScroll = () => {
       const { scrollTop } = container;
-      console.log(`🚀 ~ handleScroll ~ { scrollLeft, scrollWidth, clientWidth }:`, {
-        scrollTop
-      });
-
-      // if (scrollTop <= 160) {
-      // }
       setScrollTop(scrollTop);
-      // // Si casi llega al final...
-      // if (scrollLeft + clientWidth >= scrollWidth - 10) {
-      //   container.scrollLeft = 1; // Rebote al inicio (sin que se note)
-      // }
-
-      // // Si casi llega al principio...
-      // if (scrollLeft <= 0) {
-      //   container.scrollLeft = scrollWidth - clientWidth - 1;
-      // }
     };
 
     container.addEventListener('scroll', handleScroll);
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    setSectionHeight(section.clientHeight);
+  }, [sectionRef]);
+
   return (
     <Box
+      ref={sectionRef}
       component="section"
       sx={{
-        width: '100%'
+        width: '100%',
+        py: '8rem'
       }}
     >
       <Box
@@ -86,14 +93,38 @@ const SectionValues = () => {
           maxWidth: '1144px',
           width: '100%',
           mx: 'auto',
+          px: '1.5rem',
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          position: 'relative'
+          position: 'relative',
+          [theme.breakpoints.down('md')]: {
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            '& .gradient-1': {
+              display: 'none'
+            },
+            '& .gradient-2': {
+              display: 'none'
+            },
+            '& .gradient-3': {
+              display: 'none'
+            },
+            '& .content': {
+              mt: 2
+            },
+            '& .container-values': {
+              pl: 2.5
+            },
+            '& .box-title': {
+              pl: 2.5
+            }
+          }
         }}
       >
         <Box
+          className="gradient-1"
           sx={{
             width: '380px',
             height: '70px',
@@ -107,6 +138,7 @@ const SectionValues = () => {
           }}
         />
         <Box
+          className="gradient-2"
           sx={{
             position: 'absolute',
             zIndex: -1,
@@ -122,6 +154,7 @@ const SectionValues = () => {
           }}
         />
         <Box
+          className="title"
           sx={{
             flex: 1,
             display: 'flex',
@@ -132,6 +165,7 @@ const SectionValues = () => {
           }}
         >
           <Box
+            className="gradient-3"
             sx={{
               position: 'absolute',
               zIndex: -1,
@@ -145,14 +179,35 @@ const SectionValues = () => {
               filter: 'blur(100px)'
             }}
           />
-          <Box>
+          <Box className="box-title">
             <Box component="img" src="/images/icon-about.svg" width={55} height={32} />
             <BpTypography component="h2" color="#F2F4F9" variant="h1">
               Nuestros valores
             </BpTypography>
           </Box>
+
+          {animationLine && (
+            <Lottie
+              animationData={JSON.parse(JSON.stringify(animationLine))}
+              loop
+              speed={0.3}
+              play
+              style={{
+                width: '80px',
+                height: `${sectionHeight}px`,
+                position: 'absolute',
+                right: 0,
+                ...(isSm && {
+                  top: '5%',
+                  left: '-2.8rem'
+                })
+              }}
+            />
+          )}
         </Box>
+
         <Box
+          className="content"
           sx={{
             flex: 1,
             height: '100%',
@@ -183,6 +238,7 @@ const SectionValues = () => {
         >
           <Box
             ref={containerRef}
+            className="container-values"
             sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -215,7 +271,6 @@ const SectionValues = () => {
               <Box
                 key={value.title}
                 component={motion.article}
-                // whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

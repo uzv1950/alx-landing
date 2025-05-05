@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, useTheme } from '@mui/material';
 import BpTypography from '@/components/shared/typography/BpTypography';
 import ButtonPrimary from '@/components/common/button/ButtonPrimary';
 import { ChevronRightIcon } from '@heroicons/react/16/solid';
@@ -8,6 +8,7 @@ import { motion } from 'motion/react';
 import Lottie from 'react-lottie-player';
 
 const SectionStackup = () => {
+  const theme = useTheme();
   const [animation, setAnimation] = useState<any>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -23,6 +24,7 @@ const SectionStackup = () => {
     <Box
       component="section"
       sx={{
+        mt: -20,
         width: '100%',
         overflow: 'hidden',
         pt: '8rem',
@@ -34,7 +36,32 @@ const SectionStackup = () => {
           maxWidth: '1144px',
           width: '100%',
           mx: 'auto',
-          position: 'relative'
+          position: 'relative',
+          px: '1.5rem',
+          [theme.breakpoints.down('md')]: {
+            '& .animation-bg': {
+              width: '100%',
+              height: '310px'
+            },
+            '& .letters-container': {
+              mb: '-4rem'
+            },
+            '& .letters': {
+              width: '100%',
+              height: '70px'
+            },
+            '& .content-stackup': {
+              ml: 0,
+              mt: 3
+            },
+            '& button': {
+              width: '100%',
+              height: '56px'
+            },
+            '& .gradient-abstract': {
+              display: 'none'
+            }
+          }
         }}
       >
         {/* Degradados */}
@@ -60,6 +87,7 @@ const SectionStackup = () => {
           }}
         >
           <Box
+            className="letters-container"
             sx={{
               zIndex: 0,
               width: 'auto',
@@ -75,13 +103,14 @@ const SectionStackup = () => {
                 zIndex: 0,
                 position: 'absolute',
                 top: 0,
-                right: 0
+                right: -50
               }}
               component={motion.img}
               src="/images/stackup-letter-1.svg"
               alt="Stackup"
               width="643px"
               height="103px"
+              className="letters letters-1"
               animate={{
                 opacity: hovered ? 0 : 1
               }}
@@ -93,12 +122,13 @@ const SectionStackup = () => {
                 zIndex: 0,
                 position: 'absolute',
                 top: 0,
-                right: 0
+                right: -50
               }}
               component={motion.img}
               src="/images/stackup-letter-2.svg"
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
+              className="letters letters-2"
               alt="Stackup"
               width="643px"
               height="103px"
@@ -121,11 +151,16 @@ const SectionStackup = () => {
               />
             ) : (
               <Box
+                className="animation-bg"
                 sx={{
                   width: '680px',
                   height: '620px',
                   borderRadius: '32px',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  display: {
+                    xs: 'none',
+                    md: 'block'
+                  }
                 }}
               >
                 <Lottie
@@ -139,6 +174,7 @@ const SectionStackup = () => {
           </Grid>
           <Grid item xs={12} md={4.5} sx={{ display: 'flex', alignItems: 'center', zIndex: 1, position: 'relative' }}>
             <Box
+              className="gradient-abstract"
               component="img"
               src="/images/degradado-stackup.svg"
               alt="degradado"
@@ -154,7 +190,7 @@ const SectionStackup = () => {
               }}
               aria-hidden="true"
             />
-            <Box ml={2}>
+            <Box className="content-stackup" ml={2}>
               <BpTypography mb="2.5rem" component="h2" variant="h1" color="blueBlack.50">
                 Nuestra Solución
               </BpTypography>

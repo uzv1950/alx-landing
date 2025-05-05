@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Box, Container, Stack } from '@mui/material';
+import { Box, Container, Stack, useTheme } from '@mui/material';
 import BpTypography from '@/components/shared/typography/BpTypography';
 import ButtonPrimary from '@/components/common/button/ButtonPrimary';
 import ButtonSecondary from '@/components/common/button/ButtonSecondary';
 import Lottie from 'react-lottie-player';
+import useResponsive from '@/hooks/useResponsive';
 
 const SectionHero = () => {
+  const theme = useTheme();
+  const isSm = useResponsive('down', 'md');
   const [animationLine, setAnimationLine] = useState(null);
 
   useEffect(() => {
@@ -21,7 +24,10 @@ const SectionHero = () => {
       maxWidth={false}
       sx={{
         height: '100vh',
-        width: '100%'
+        width: '100%',
+        [theme.breakpoints.up(1920)]: {
+          height: '820px'
+        }
       }}
     >
       <Box
@@ -38,12 +44,67 @@ const SectionHero = () => {
             "f g h i j"
             "k l m n o"
             "p q r s t"
-          `
+            `,
+          [theme.breakpoints.down('md')]: {
+            display: 'flex',
+            flexDirection: 'column',
+            pt: '18rem',
+            pb: '9rem',
+            '& .hero-title': {
+              marginBottom: '2.063rem'
+            },
+            '& .btn-contact': {
+              height: '3.375rem'
+            }
+          },
+          position: 'relative'
         }}
       >
-        <Box sx={{ gridArea: 'f', gridColumn: 'f / g', maxWidth: '445px', width: '100%' }}>
+        {animationLine && isSm && (
+          <Lottie
+            animationData={JSON.parse(JSON.stringify(animationLine))}
+            loop
+            speed={0.3}
+            play
+            style={{
+              position: 'absolute',
+              width: '60px',
+              height: '740px',
+              top: '39%',
+              left: '-1.2rem'
+            }}
+          />
+        )}
+        <Box
+          sx={{
+            gridArea: {
+              xs: 'a',
+              md: 'f'
+            },
+            gridColumn: {
+              xs: 'a / b',
+              md: 'f / g'
+            },
+            maxWidth: '445px',
+            width: '100%'
+          }}
+          className="hero-title"
+        >
           <BpTypography
-            textAlign="right"
+            sx={{
+              textAlign: {
+                xs: 'left',
+                md: 'right'
+              },
+              fontSize: {
+                xs: '2.5rem',
+                md: '3.75rem'
+              },
+              lineHeight: {
+                xs: '48px',
+                md: '80px'
+              }
+            }}
             component="h1"
             color="grey.50"
             variant="h1"
@@ -56,8 +117,12 @@ const SectionHero = () => {
 
         <Box
           component="article"
+          className="hero-content"
           sx={{
-            mt: '5.375rem',
+            mt: {
+              xs: '1rem',
+              md: '5.375rem'
+            },
             gridArea: 'n',
             gridColumn: 'n / o'
           }}
@@ -67,26 +132,35 @@ const SectionHero = () => {
             trayectoria con innovación real y alianzas estratégicas para ayudarte a crecer, operar mejor y mirar al
             futuro sin complicaciones.
           </BpTypography>
-          <Stack gap={2}>
-            <ButtonPrimary fullWidth={false} size="large">
+          <Stack
+            gap={2}
+            sx={{
+              flexDirection: {
+                xs: 'column',
+                md: 'row'
+              }
+            }}
+          >
+            <ButtonPrimary className="btn-contact" fullWidth={false} size="large">
               Contáctanos
             </ButtonPrimary>
-            <ButtonSecondary fullWidth={false} size="large">
+            <ButtonSecondary className="btn-contact" fullWidth={false} size="large">
               Conoce STACKUP
             </ButtonSecondary>
           </Stack>
         </Box>
-        <Box
-          aria-hidden="true"
-          sx={{
-            ml: 4,
-            height: '100%',
-            gridArea: 'c',
-            gridColumn: 'c',
-            gridRow: 'c / r'
-          }}
-        >
-          {animationLine && (
+        {animationLine && !isSm && (
+          <Box
+            aria-hidden="true"
+            sx={{
+              ml: 4,
+              height: '100%',
+              gridArea: 'c',
+              gridColumn: 'c',
+              gridRow: 'c / r'
+            }}
+            className="hero-animation"
+          >
             <Lottie
               animationData={JSON.parse(JSON.stringify(animationLine))}
               loop
@@ -97,8 +171,8 @@ const SectionHero = () => {
                 height: '100%'
               }}
             />
-          )}
-        </Box>
+          </Box>
+        )}
       </Box>
     </Container>
   );

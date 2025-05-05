@@ -161,7 +161,10 @@ const BaseTheme: ThemeOptions = {
     h1: {
       fontWeight: 400,
       fontFamily: varelaRound.style.fontFamily,
-      fontSize: '3rem' // 48px
+      fontSize: '3rem', // 48px
+      '@media (max-width: 600px)': {
+        fontSize: '2.25rem' // 36px
+      }
     },
     h2: {
       fontWeight: 400,
@@ -272,6 +275,13 @@ const BaseTheme: ThemeOptions = {
       styleOverrides: {
         root: {
           backgroundColor: '#F2F2F2' // Cambia el color aquí
+        }
+      }
+    },
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          padding: '0 1.75rem'
         }
       }
     }

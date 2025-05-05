@@ -55,7 +55,8 @@ const SectionContact = () => {
         position: 'relative',
         overflow: 'hidden',
         pt: '3rem',
-        pb: '8rem'
+        pb: '8rem',
+        px: '1.5rem'
       }}
     >
       <Box
@@ -63,7 +64,6 @@ const SectionContact = () => {
           maxWidth: '758px',
           width: '100%',
           mx: 'auto',
-          px: { xs: 2, md: 0 },
           position: 'relative'
         }}
       >
@@ -96,7 +96,19 @@ const SectionContact = () => {
         <BpTypography textAlign="center" color="grey.50" component="h2" variant="h1">
           Contáctanos
         </BpTypography>
-        <BpTypography mt={2} textAlign="center" color="grey.50" component="p" variant="bodyS">
+        <BpTypography
+          mt={2}
+          textAlign="center"
+          color="grey.50"
+          component="p"
+          variant="bodyS"
+          sx={{
+            fontSize: {
+              xs: '1rem',
+              md: '0.875rem'
+            }
+          }}
+        >
           Contáctanos y descubre cómo Altabix puede ayudarte a optimizar, automatizar y potenciar tu negocio.
         </BpTypography>
 
@@ -156,27 +168,7 @@ const SectionContact = () => {
                 onBlur={formik.handleBlur}
                 error={formik.touched.service && Boolean(formik.errors.service)}
                 helperText={formik.touched.service && formik.errors.service}
-                select
-                SelectProps={{
-                  displayEmpty: true,
-                  IconComponent: () => (
-                    <ChevronDownIcon
-                      width={32}
-                      height={32}
-                      style={{
-                        color: '#1ECAD3B2',
-                        marginRight: '10px'
-                      }}
-                    />
-                  )
-                }}
-              >
-                <MenuItem value="">Selecciona una opción</MenuItem>
-                <MenuItem value="consulting">Consultoría</MenuItem>
-                <MenuItem value="development">Desarrollo de Software</MenuItem>
-                <MenuItem value="support">Soporte Técnico</MenuItem>
-                <MenuItem value="other">Otro</MenuItem>
-              </BpTextFieldWithLabel>
+              />
             </Grid>
             <Grid item xs={12}>
               <BpTextFieldWithLabel

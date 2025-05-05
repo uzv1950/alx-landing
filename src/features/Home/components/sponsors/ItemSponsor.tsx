@@ -1,6 +1,11 @@
 import { Box } from '@mui/material';
 
-const ItemSponsor = () => {
+type TProps = {
+  description: string;
+  image: string;
+};
+
+const ItemSponsor = ({ image, description }: TProps) => {
   return (
     <Box
       sx={{
@@ -16,7 +21,7 @@ const ItemSponsor = () => {
         transition: 'all 0.3s ease-in-out'
       }}
     >
-      <Box component="img" src="/images/icon-logo.svg" width={180} height={80} />
+      <Box component="img" src={image} width={180} height={80} alt={description} />
     </Box>
   );
 };

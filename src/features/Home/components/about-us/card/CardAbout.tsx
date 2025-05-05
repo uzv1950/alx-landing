@@ -57,15 +57,19 @@ const CardAbout: FC<CardAboutProps> = ({ title, description, ...props }) => {
 
   return (
     <Box
+      component="article"
       {...props}
       sx={{
         ...props.sx,
         background: 'linear-gradient(360deg, #141719 0%, #1E2225 100%)',
         transition: 'all 1s cubic-bezier(0.4, 0, 1, 1)',
+        '.card-content': {
+          transition: 'all 1s linear'
+        },
         '&:hover': {
-          background: 'linear-gradient(360deg, #FFFFFF 0%, #F2F2F2 100%)',
+          background: '#F2F2F2',
           '.card-content': {
-            background: 'linear-gradient(360deg, #FFFFFF 0%, #F2F2F2 100%)'
+            background: '#F2F2F2'
           },
           '.card-about-title': {
             color: 'blueBlack.800'
@@ -78,7 +82,7 @@ const CardAbout: FC<CardAboutProps> = ({ title, description, ...props }) => {
           }
         },
         borderRadius: '16px',
-        padding: '2px',
+        padding: '1px',
         position: 'relative',
         overflow: 'hidden',
         '&::before': {

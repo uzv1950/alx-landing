@@ -1,20 +1,27 @@
 /* eslint-disable max-len */
+import { useState } from 'react';
 import { Box } from '@mui/material';
 import BpTypography from '@/components/shared/typography/BpTypography';
+import { motion } from 'motion/react';
 
 const CardPerson = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <Box
       component="article"
+      className="card-person"
       sx={{
-        width: '216px',
-        // height: '280px',
+        width: '100%',
         borderRadius: '16px',
+        height: '100%',
         overflow: 'hidden',
         position: 'relative',
         background:
           'linear-gradient(180deg, rgba(0, 0, 0, 0) 46.07%, rgba(0, 0, 0, 0.6) 85.54%), linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3))'
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <Box
         component="img"
@@ -45,27 +52,41 @@ const CardPerson = () => {
 
       {/* circles degradados */}
       <Box
+        component={motion.div}
+        animate={{ left: isHovered ? 100 : -80 }}
+        transition={{ type: 'spring', stiffness: 100, damping: 15, duration: 2 }}
         sx={{
-          background: 'radial-gradient(50% 50% at 50% 50%, rgba(4, 200, 195, 0.7) 0%, rgba(44, 255, 249, 0.28) 100%)',
+          background: 'radial-gradient(50% 50% at 50% 50%, rgba(4, 216, 209, 0.77) 0%, rgba(44, 255, 249, 0.28) 100%)',
           width: '143px',
           height: '143px',
           borderRadius: '50%',
           position: 'absolute',
           filter: 'blur(50px)',
-          bottom: -40,
+          bottom: -30,
           left: -80,
-          zIndex: 0
+          zIndex: 2
         }}
       />
       <Box
+        component={motion.div}
+        animate={{
+          ...(isHovered && {
+            top: 0,
+            right: -80
+          }),
+          ...(!isHovered && {
+            bottom: -20,
+            right: -20
+          })
+        }}
+        transition={{ type: 'spring', stiffness: 100, damping: 15, duration: 2 }}
         sx={{
-          background: 'radial-gradient(42.19% 42.19% at 50% 39.06%, rgba(1, 118, 224, 0.7) 0%, #0176E0 100%)',
+          background: 'radial-gradient(42.19% 42.19% at 50% 39.06%, rgba(1, 118, 224, 0.7) 0%,rgb(2, 97, 185) 100%)',
           width: '143px',
           height: '143px',
           borderRadius: '50%',
           position: 'absolute',
-          filter: 'blur(60px)',
-          // backdropFilter: 'blur(80px)',
+          filter: 'blur(50px)',
           bottom: -20,
           right: -20,
           zIndex: 0

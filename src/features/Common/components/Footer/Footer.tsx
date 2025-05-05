@@ -1,18 +1,35 @@
 /* eslint-disable max-len */
-import { Box, Container, Grid, Link } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Box, Grid, Link } from '@mui/material';
 import BpTypography from '@/components/shared/typography/BpTypography';
 import Image from 'next/image';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Lottie from 'react-lottie-player';
+import useResponsive from '@/hooks/useResponsive';
 
 const Footer = () => {
+  const isSm = useResponsive('down', 'md');
+  const [animationLine, setAnimationLine] = useState(null);
+
+  useEffect(() => {
+    fetch('/lottie/glow-vertical-line.json')
+      .then(res => res.json())
+      .then(data => {
+        setAnimationLine(data);
+      });
+  }, []);
+
   return (
-    // <Container maxWidth={false} sx={{ border: '1px solid blue', width: '100%' }}>
     <Box
       component="footer"
       sx={{
         overflow: 'hidden',
         pt: '4rem',
-        pb: '2rem'
+        pb: '2rem',
+        px: {
+          xs: '1.75rem',
+          md: '1.75rem'
+        }
       }}
     >
       <Box
@@ -24,7 +41,8 @@ const Footer = () => {
           mx: 'auto',
           borderRadius: '16px',
           background: 'linear-gradient(360deg, rgba(28, 28, 28, 0.3) 0%, rgba(48, 48, 48, 0.3) 100%)',
-          position: 'relative'
+          position: 'relative',
+          overflow: 'hidden'
         }}
       >
         <Box
@@ -92,7 +110,7 @@ const Footer = () => {
                   </Link>
                 </Box>
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={3} sx={{ position: 'relative' }}>
                 <BpTypography color="primary.300" component="h6" variant="h6" sx={{ mb: 2 }}>
                   Sitio
                 </BpTypography>
@@ -166,6 +184,21 @@ const Footer = () => {
                     </BpTypography>
                   </Link>
                 </Box>
+                {animationLine && !isSm && (
+                  <Lottie
+                    animationData={JSON.parse(JSON.stringify(animationLine))}
+                    loop
+                    speed={0.3}
+                    play
+                    style={{
+                      width: '100px',
+                      height: `500px`,
+                      position: 'absolute',
+                      right: -50,
+                      top: 0
+                    }}
+                  />
+                )}
               </Grid>
             </Grid>
           </Grid>
@@ -173,20 +206,26 @@ const Footer = () => {
             <BpTypography color="primary.300" component="h6" variant="h6" sx={{ mb: 2 }}>
               Conócenos
             </BpTypography>
-            <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: '1.5rem' }}>
               <LocationOnIcon sx={{ color: 'grey.400', mr: 1, mt: 0.5 }} />
               <BpTypography color="grey.400" component="p" variant="bodyS">
                 Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit consecuencia oficial.
               </BpTypography>
             </Box>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14203.753869402775!2d-99.01381649070001!3d19.45176352742053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2smx!4v1745904353694!5m2!1sen!2smx"
+            <Box
+              component="iframe"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d470.3806051575437!2d-99.02230519153214!3d19.410468427365096!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fd295cd93c8d%3A0xd84fed35b9a5690b!2sFarmacia%20Bienestar!5e0!3m2!1sen!2smx!4v1746419117772!5m2!1sen!2smx"
               width="400"
               height="300"
               style={{ border: '0', borderRadius: '16px', height: '100px' }}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+              sx={{
+                width: '100%',
+                height: '100%',
+                borderRadius: '16px'
+              }}
+            />
           </Grid>
         </Grid>
       </Box>

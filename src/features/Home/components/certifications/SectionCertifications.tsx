@@ -2,6 +2,8 @@ import { Box } from '@mui/material';
 import BpTypography from '@/components/shared/typography/BpTypography';
 import CardCertification from './CardCertification';
 import { Grid } from '@mui/material';
+import TestSlider from './TestSlider';
+import SliderCertificiations from './SliderCertificiations';
 
 const SectionCertifications = () => {
   return (
@@ -20,7 +22,8 @@ const SectionCertifications = () => {
           maxWidth: '1144px',
           width: '100%',
           mx: 'auto',
-          position: 'relative'
+          position: 'relative',
+          px: '1.5rem'
         }}
       >
         <Box
@@ -54,7 +57,8 @@ const SectionCertifications = () => {
         <BpTypography mb="2.5rem" textAlign="center" component="h2" variant="h1" color="blueBlack.50">
           Certificaciones
         </BpTypography>
-        <Grid container spacing={4}>
+        <SliderCertificiations />
+        {/* <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
             <CardCertification />
           </Grid>
@@ -64,7 +68,8 @@ const SectionCertifications = () => {
           <Grid item xs={12} md={4}>
             <CardCertification />
           </Grid>
-        </Grid>
+        </Grid> */}
+        {/* <TestSlider /> */}
       </Box>
     </Box>
   );

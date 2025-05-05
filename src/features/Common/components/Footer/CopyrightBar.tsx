@@ -12,7 +12,10 @@ const CopyrightBar = () => {
     <Box
       sx={{
         zIndex: 0,
-        height: '68px',
+        height: {
+          xs: 'auto',
+          md: '68px'
+        },
         bgcolor: 'blueBlack.900',
         display: 'flex',
         alignItems: 'center'
@@ -26,7 +29,20 @@ const CopyrightBar = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            px: 3
+            px: 3,
+            gap: '1.2rem',
+            flexDirection: {
+              xs: 'column',
+              md: 'row'
+            },
+            textAlign: {
+              xs: 'center',
+              md: 'left'
+            },
+            py: {
+              xs: '1.75rem',
+              md: 0
+            }
           }}
         >
           <BpTypography component="p" variant="titleS" color="grey.50">
