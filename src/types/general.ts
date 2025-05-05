@@ -1,24 +1,3 @@
-import { TFileItem } from '@/features/Upload/models';
-
-export type TSessionUser = {
-  id: string;
-  name: string;
-  email: string;
-  status: string;
-  role: string;
-  tenantId: string;
-  tenant: {
-    id: string;
-    logo: TFileItem | null;
-  } | null;
-  avatar: {
-    id: string;
-    url: string;
-  } | null;
-  apps: { id: string; name: string; roleId: string }[];
-  tenantApps: { id: string; name: string; status: string }[];
-};
-
 export type ThemeMode = 'light' | 'dark';
 
 export interface IGeneralPaginationList {
@@ -43,13 +22,6 @@ export type TPaginationList<T, U> = {
   };
   items: T[];
 };
-
-export enum UserStatus {
-  Active = 'active',
-  Inactive = 'inactive',
-  Blocked = 'blocked',
-  PasswordExpired = 'password-expired'
-}
 
 export type TSelectItem<T = string> = {
   id: T;

@@ -1,4 +1,3 @@
-import { REGEX_TEXT } from '@/const/general';
 import { forwardRef } from 'react';
 
 // Definimos las propiedades esperadas por el componente

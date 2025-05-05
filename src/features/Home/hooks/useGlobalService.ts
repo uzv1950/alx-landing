@@ -1,11 +1,10 @@
 import { useCallback } from 'react';
 import getGlobalService from '../services/getGlobalData.service';
-import { globalMetadataAdapter } from '../adapters/global';
 
 const useGlobalService = () => {
-  const getGlobalMetadata = useCallback(async (query: string = '') => {
+  const getGlobalMetadata = useCallback(async (query = '') => {
     const res = await getGlobalService(query);
-    return globalMetadataAdapter(res);
+    return res;
   }, []);
 
   return {

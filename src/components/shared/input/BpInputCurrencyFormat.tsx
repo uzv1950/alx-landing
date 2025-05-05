@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { NumericFormat } from 'react-number-format';
 
 interface CustomProps {
-  onChange: (event: { target: { name: string; value: string } }) => void;
+  onChange: (e: { target: { name: string; value: string } }) => void;
   name: string;
 }
 

@@ -5,21 +5,34 @@
     "node": true,
     "jest": true
   },
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "next",
+    "prettier",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "next/core-web-vitals"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json",
-    "sourceType": "module",
-    "ecmaVersion": "latest",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
-  "extends": ["next", "next/core-web-vitals", "plugin:@typescript-eslint/recommended", "plugin:testing-library/react"],
-  "plugins": ["@typescript-eslint", "testing-library"],
+  "plugins": ["react", "jest", "react-hooks", "testing-library", "@typescript-eslint"],
   "overrides": [
+    // Only uses Testing Library lint rules in test files
     {
       "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
-      "extends": ["plugin:testing-library/react"]
+      "extends": ["plugin:testing-library/react"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off",
+        "no-var-requires": "off"
+      }
     },
     {
       "files": ["**/src/typesGQL/*.ts"],
@@ -40,12 +53,12 @@
     "consistent-return": "off",
     "no-console": "off",
     "max-len": ["error", { "code": 140 }],
-    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
     "react/jsx-filename-extension": ["off", { "extensions": [".js", ".jsx", ".tsx"] }],
     "react/require-default-props": "off",
     "react/display-name": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "testing-library/await-async-query": "off",
+    "testing-library/await-async-query": "error",
     "testing-library/no-await-sync-query": "error",
     "testing-library/no-debugging-utils": "warn",
     "testing-library/no-dom-import": "off",
