@@ -6,9 +6,7 @@
 
 ## Descripción del proyecto
 
-StackUp es una suite digital en la nube diseñada para ayudarte a incrementar las ventas de tu negocio hotelero.
-
-Desarrollado por Altabix, esta herramienta modular en la nube permite a propietarios y operadores de hoteles pequeños y grandescontrolar todos los aspectos de su negocio de manera centralizada y eficiente.
+Landing page para la empresa Altabix
 
 ## Instalación
 
